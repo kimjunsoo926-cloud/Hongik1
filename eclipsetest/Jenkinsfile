@@ -9,6 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 bat 'if not exist classes mkdir classes'
+                bat 'dir /s /b *.jar'
                 bat '''
                     dir /s /b eclipsetest\\src\\*.java > sources.txt
                     javac -encoding UTF-8 -d classes @sources.txt
