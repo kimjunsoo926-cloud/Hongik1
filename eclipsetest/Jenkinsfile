@@ -9,7 +9,6 @@ pipeline {
         stage('Build') {
             steps {
                 bat 'if not exist classes mkdir classes'
-                bat 'dir /s /b *.jar'
                 bat '''
                     dir /s /b eclipsetest\\src\\*.java > sources.txt
                     javac -encoding UTF-8 -d classes @sources.txt
@@ -19,7 +18,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    def classpath = "classes;lib\\junit-platform-console-standalone-1.7.1.jar"
+                    def classpath = "classes;eclipsetest\\lib\\junit-platform-console-standalone-1.7.1.jar"
                     bat "java -cp ${classpath} org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt"
                 }
             }
